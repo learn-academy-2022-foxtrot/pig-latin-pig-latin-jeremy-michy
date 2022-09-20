@@ -15,15 +15,14 @@ const App = () => {
     // NO MODIFICATION NEEDED: the variable "arrayOfUserInput" will contain the
     // text input from the user split into an array of words
     const arrayOfUserInput = userInput.split(" ");
-    console.log("arrayOfUserInput:", arrayOfUserInput);
 
     // NO MODIFICATION NEEDED: now that we have an array of words, we can map
     // over the array and look at each word
-    const translatedWordsArray = arrayOfUserInput.map((eachWord) => {
-      console.log("eachWord:", eachWord);
-
+    const translatedWordsArray = arrayOfUserInput.map((word) => {
       // NO MODIFICATION NEEDED: this code will look at each word and identify
       // the vowels
+
+      const eachWord = word.toLowerCase(); // <== set all words to lowercase
 
       const vowelsArray = eachWord.split("").filter((vowel) => {
         return (
@@ -34,32 +33,78 @@ const App = () => {
           vowel === "u"
         );
       });
-      console.log("vowelsArray:", vowelsArray);
 
       // ACTION ITEM: your Pig Latin logic goes here!
       //==============================================================================
+
+      // -----------------STRETCH #1 Punctuation -------------------------------
+      //removes all punctuation
+      const punctFreeWordArr = eachWord.split("").filter((punct) => {
+        return (
+          punct !== "," &&
+          punct !== "." &&
+          punct !== "!" &&
+          punct !== "?" &&
+          punct !== ":" &&
+          punct !== ";" &&
+          punct !== "'"
+        );
+      });
+
+      // stores all punctuation
+      const punctuationArr = eachWord.split("").filter((punct) => {
+        return (
+          punct === "," ||
+          punct === "." ||
+          punct === "!" ||
+          punct === "?" ||
+          punct === ":" ||
+          punct === ";" ||
+          punct === "'"
+        );
+      });
 
       // Story # 1
       // ========Vowel at beginning add "way to end ==========="
       for (let i = 0; i < vowelsArray.length; i++) {
         if (vowelsArray[i] === eachWord[0]) {
-          return eachWord + "way";
+          // if word has punctuation...
+          if (punctuationArr.length > 0) {
+            // return the word with "way" and punctuation at the end.
+            return punctFreeWordArr.join("") + "way" + punctuationArr.join("");
+          } else {
+            //else return original word with "way" at the end
+            return eachWord + "way";
+          }
         }
       }
+
       // Story # 2
       // =triggered if words have "qu" in them and modifies word accordingly==
       for (let i = 0; i < eachWord.length; i++) {
         if (eachWord[i] === "q" && eachWord[i + 1] === "u") {
           // squeal === ealsquay
 
-          let startIndex = i - 1; // saves start index of leters to remove
+          let startIndex = i; // saves start index of leters to remove
           let endIndex = i + 2; // saves end index of leters to remove
 
           while (startIndex <= endIndex) {
-            const letterArray = eachWord.split("");
-            const vowelSlice = letterArray.slice(startIndex, endIndex); // [ s, q, u ]
-            const otherSLice = letterArray.slice(endIndex); //[ e, a, l ]
-            return otherSLice.join("") + vowelSlice.join("") + "ay";
+            const vowelSlice = punctFreeWordArr.slice(startIndex, endIndex); // [ s, q, u ]
+            const otherSLice = punctFreeWordArr.slice(endIndex); //[ e, a, l ]
+
+            // check if there is punctuationin word
+            // if there is, add punctuation at end
+            if (punctuationArr.length > 0) {
+              return (
+                otherSLice.join("") +
+                vowelSlice.join("") +
+                "ay" +
+                punctuationArr.join("")
+              );
+            } else {
+              // else return word with "ay" at the end
+              return otherSLice.join("") + vowelSlice.join("") + "ay";
+            }
           }
         }
       }
@@ -69,23 +114,32 @@ const App = () => {
       for (let i = 0; i < eachWord.length; i++) {
         if (vowelsArray.length === 0 && eachWord[i] === "y") {
           // fry === yfray
-
           let yIndex = i; // saves start index of leters to remove
-          let endIndex = i + 2; // saves end index of leters to remove
+          const vowelSlice = punctFreeWordArr.slice(yIndex, yIndex + 1); // ["y"]
+          const otherSLice = punctFreeWordArr.slice(0, yIndex); // beginning characters
 
-          const letterArray = eachWord.split("");
-          const vowelSlice = letterArray.slice(yIndex, yIndex + 1); // ["y"]
-          const otherSLice = letterArray.slice(0, yIndex); // beginning characters
-          return vowelSlice.join("") + otherSLice.join("") + "ay"; // joined characters in new format
+          // check if there is punctuationin word
+          // if there is, add punctuation at end
+          if (punctuationArr.length > 0) {
+            // return the word with punctuation at the end.
+            return (
+              vowelSlice.join("") +
+              otherSLice.join("") +
+              "ay" +
+              punctuationArr.join("")
+            );
+          } else {
+            //else if no punctuation, do this...
+            return vowelSlice.join("") + otherSLice.join("") + "ay"; // joined characters in new format
+          }
         }
       }
 
       // Story # 4
       // through === ough "thr" + "ay"
-
       for (let i = 0; i < vowelsArray.length; i++) {
         let startIndex;
-        let endIndex;
+        let endIndex = 0;
 
         // if first letter is not a vowel then..
         if (vowelsArray[i] !== eachWord[0]) {
@@ -95,27 +149,40 @@ const App = () => {
           for (let j = 0; j < vowelsArray.length; j++) {
             for (let k = 0; k < eachWord.length; k++) {
               if (vowelsArray[j] === eachWord[k]) {
-                endIndex = k - 1;
-                break;
+                if (endIndex === 0) {
+                  endIndex = k;
+                }
               }
             }
           }
+          const conSlice = punctFreeWordArr.slice(startIndex, endIndex); //["t", "h", "r"];
+          const otherSLice = punctFreeWordArr.slice(endIndex);
 
-          const letterArray = eachWord.split("");
-          const conSlice = letterArray.slice(startIndex, endIndex); //["t", "h", "r"];
-          const otherSLice = letterArray.slice(endIndex);
-          return otherSLice.join("") + conSlice.join("") + "ay";
+          // check if there is punctuationin word
+          // if there is, add punctuation at end
+          if (punctuationArr.length > 0) {
+            // return the word with punctuation at the end.
+            return (
+              otherSLice.join("") +
+              conSlice.join("") +
+              "ay" +
+              punctuationArr.join("")
+            );
+          } else {
+            //else if no punctuation, do this
+            return otherSLice.join("") + conSlice.join("") + "ay";
+          }
         }
       }
       //==============================================================================
       // ACTION ITEM: this return will be the output of your Pig Latin'd code
-      return eachWord;
+      // if inout does not match requirements above then return message
+      return "Please enter words, or suffer the consequences!!!";
     });
 
     // NO MODIFICATION NEEDED: once the code has been modified it gets joined
     // from an array back to a string
     const translatedWords = translatedWordsArray.join(" ");
-    console.log("translatedWords:", translatedWords);
 
     // NO MODIFICATION NEEDED: this will update the inputTranslated variable in
     // state
