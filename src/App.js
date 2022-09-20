@@ -1,68 +1,151 @@
-import React, { useState } from 'react'
-import './App.css'
-import butcherPigImage from './assets/butcherPig.jpeg'
+import React, { useState } from "react";
+import "./App.css";
+import butcherPigImage from "./assets/butcherPig.jpeg";
 
 const App = () => {
+  // ACTION ITEM: to make the development process easier there are some
+  //preassigned words in the input field, when you are ready for your full user
+  //experience delete the test words passed to useState and pass an empty string
+  const [userInput, setUserInput] = useState(
+    "apple through queen squeal fry fluent"
+  );
+  const [inputTranslated, setInputTranslated] = useState("");
 
-  // ACTION ITEM: to make the development process easier there are some preassigned words in the input field, when you are ready for your full user experience delete the test words passed to useState and pass an empty string
-  const [userInput, setUserInput] = useState("apple through queen squeal fry fluent")
-  const [inputTranslated, setInputTranslated] = useState("")
-
-  // ACTION ITEM: the "myPigLatinCodeHere" function is where you will put your logic to translate the sentence entered by the user into Pig Latin
+  // ACTION ITEM: the "myPigLatinCodeHere" function is where you will put your
+  // logic to translate the sentence entered by the user into Pig Latin
   const myPigLatinCodeHere = () => {
+    // NO MODIFICATION NEEDED: the variable "arrayOfUserInput" will contain the
+    // text input from the user split into an array of words
+    const arrayOfUserInput = userInput.split(" ");
+    console.log("arrayOfUserInput:", arrayOfUserInput);
 
-    // NO MODIFICATION NEEDED: the variable "arrayOfUserInput" will contain the text input from the user split into an array of words
-    const arrayOfUserInput = userInput.split(" ")
-    console.log("arrayOfUserInput:", arrayOfUserInput)
+    // NO MODIFICATION NEEDED: now that we have an array of words, we can map
+    // over the array and look at each word
+    const translatedWordsArray = arrayOfUserInput.map((eachWord) => {
+      console.log("eachWord:", eachWord);
 
-    // NO MODIFICATION NEEDED: now that we have an array of words, we can map over the array and look at each word
-    const translatedWordsArray = arrayOfUserInput.map(eachWord => {
-      console.log("eachWord:", eachWord)
+      // NO MODIFICATION NEEDED: this code will look at each word and identify
+      // the vowels
 
-      // NO MODIFICATION NEEDED: this code will look at each word and identify the vowels
-      const vowelsArray = eachWord.split("").filter(vowel => {
+      const vowelsArray = eachWord.split("").filter((vowel) => {
         return (
-          vowel === "a" || 
-          vowel === "e" || 
-          vowel === "i" || 
-          vowel === "o" || 
+          vowel === "a" ||
+          vowel === "e" ||
+          vowel === "i" ||
+          vowel === "o" ||
           vowel === "u"
-        )
-      })
-      console.log("vowelsArray:", vowelsArray)
+        );
+      });
+      console.log("vowelsArray:", vowelsArray);
 
       // ACTION ITEM: your Pig Latin logic goes here!
+      //==============================================================================
 
-    
+      // Story # 1
+      // ========Vowel at beginning add "way to end ==========="
+      for (let i = 0; i < vowelsArray.length; i++) {
+        if (vowelsArray[i] === eachWord[0]) {
+          return eachWord + "way";
+        }
+      }
+      // Story # 2
+      // =triggered if words have "qu" in them and modifies word accordingly==
+      for (let i = 0; i < eachWord.length; i++) {
+        if (eachWord[i] === "q" && eachWord[i + 1] === "u") {
+          // squeal === ealsquay
+
+          let startIndex = i - 1; // saves start index of leters to remove
+          let endIndex = i + 2; // saves end index of leters to remove
+
+          while (startIndex <= endIndex) {
+            const letterArray = eachWord.split("");
+            const vowelSlice = letterArray.slice(startIndex, endIndex); // [ s, q, u ]
+            const otherSLice = letterArray.slice(endIndex); //[ e, a, l ]
+            return otherSLice.join("") + vowelSlice.join("") + "ay";
+          }
+        }
+      }
+
+      // Story # 3
+      // === triggered if no vowels and contains a "y" to make changes to word accordingly ===
+      for (let i = 0; i < eachWord.length; i++) {
+        if (vowelsArray.length === 0 && eachWord[i] === "y") {
+          // fry === yfray
+
+          let yIndex = i; // saves start index of leters to remove
+          let endIndex = i + 2; // saves end index of leters to remove
+
+          const letterArray = eachWord.split("");
+          const vowelSlice = letterArray.slice(yIndex, yIndex + 1); // ["y"]
+          const otherSLice = letterArray.slice(0, yIndex); // beginning characters
+          return vowelSlice.join("") + otherSLice.join("") + "ay"; // joined characters in new format
+        }
+      }
+
+      // Story # 4
+      // through === ough "thr" + "ay"
+
+      for (let i = 0; i < vowelsArray.length; i++) {
+        let startIndex;
+        let endIndex;
+
+        // if first letter is not a vowel then..
+        if (vowelsArray[i] !== eachWord[0]) {
+          startIndex = i;
+          // iterate through letters to find the first vowel..
+          // then store the index of that vowel
+          for (let j = 0; j < vowelsArray.length; j++) {
+            for (let k = 0; k < eachWord.length; k++) {
+              if (vowelsArray[j] === eachWord[k]) {
+                endIndex = k - 1;
+                break;
+              }
+            }
+          }
+
+          const letterArray = eachWord.split("");
+          const conSlice = letterArray.slice(startIndex, endIndex); //["t", "h", "r"];
+          const otherSLice = letterArray.slice(endIndex);
+          return otherSLice.join("") + conSlice.join("") + "ay";
+        }
+      }
+
+      //==============================================================================
 
       // ACTION ITEM: this return will be the output of your Pig Latin'd code
-      return eachWord
-    })
+      return eachWord;
+    });
 
-    // NO MODIFICATION NEEDED: once the code has been modified it gets joined from an array back to a string
-    const translatedWords = translatedWordsArray.join(" ")
-    console.log("translatedWords:", translatedWords)
+    // NO MODIFICATION NEEDED: once the code has been modified it gets joined
+    // from an array back to a string
+    const translatedWords = translatedWordsArray.join(" ");
+    console.log("translatedWords:", translatedWords);
 
-    // NO MODIFICATION NEEDED: this will update the inputTranslated variable in state
-    setInputTranslated(translatedWords)
-  }
+    // NO MODIFICATION NEEDED: this will update the inputTranslated variable in
+    // state
+    setInputTranslated(translatedWords);
+  };
 
-  // ACTION ITEM: this method restarts the game by setting the original state, when you are ready for your full user experience delete the test words in setUserInput and pass an empty string
+  // ACTION ITEM: this method restarts the game by setting the original state,
+  // when you are ready for your full user experience delete the test words in
+  // setUserInput and pass an empty string
   const restartGame = () => {
-    setUserInput("apple through queen squeal fry fluent")
-    setInputTranslated("")
-  }
+    setUserInput("apple through queen squeal fry fluent");
+    setInputTranslated("");
+  };
 
-  // NO MODIFICATION NEEDED: this method prevents React from refreshing the page unnecessarily
+  // NO MODIFICATION NEEDED: this method prevents React from refreshing the
+  // page unnecessarily
   const setUpPreventDefault = (e) => {
-    e.preventDefault()
-    myPigLatinCodeHere()
-  }
+    e.preventDefault();
+    myPigLatinCodeHere();
+  };
 
-  // NO MODIFICATION NEEDED: this method takes the value of the input and saves it in state
+  // NO MODIFICATION NEEDED: this method takes the value of the input and saves
+  // it in state
   const handleInput = (e) => {
-    setUserInput(e.target.value)
-  }
+    setUserInput(e.target.value);
+  };
 
   return (
     <div className="page-container">
@@ -90,7 +173,7 @@ const App = () => {
       </div>
       <footer>&copy; 2022 | Coded by: Your Names Here!</footer>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
