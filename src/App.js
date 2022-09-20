@@ -6,9 +6,7 @@ const App = () => {
   // ACTION ITEM: to make the development process easier there are some
   //preassigned words in the input field, when you are ready for your full user
   //experience delete the test words passed to useState and pass an empty string
-  const [userInput, setUserInput] = useState(
-    "apple through queen squeal fry fluent"
-  );
+  const [userInput, setUserInput] = useState("");
   const [inputTranslated, setInputTranslated] = useState("");
 
   // ACTION ITEM: the "myPigLatinCodeHere" function is where you will put your
@@ -109,9 +107,7 @@ const App = () => {
           return otherSLice.join("") + conSlice.join("") + "ay";
         }
       }
-
       //==============================================================================
-
       // ACTION ITEM: this return will be the output of your Pig Latin'd code
       return eachWord;
     });
@@ -130,7 +126,7 @@ const App = () => {
   // when you are ready for your full user experience delete the test words in
   // setUserInput and pass an empty string
   const restartGame = () => {
-    setUserInput("apple through queen squeal fry fluent");
+    setUserInput("");
     setInputTranslated("");
   };
 
@@ -156,7 +152,6 @@ const App = () => {
           alt="pig with butcher cut names in pig latin"
           className="butcher-pig-image"
         />
-
         <div className="input-section">
           <h4>Enter phrase to be translated:</h4>
           <input
@@ -169,7 +164,7 @@ const App = () => {
           <button onClick={setUpPreventDefault}>Submit</button>
           <button onClick={restartGame}>Clear</button>
         </div>
-        <p>{inputTranslated}</p>
+        <p className="translatedText">{inputTranslated}</p>
       </div>
       <footer>&copy; 2022 | Coded by: Your Names Here!</footer>
     </div>
