@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e9168539.css",
+    "main.js": "/static/js/main.6928cf9d.js",
+    "static/js/787.83af2e5e.chunk.js": "/static/js/787.83af2e5e.chunk.js",
+    "static/media/butcherPig.jpeg": "/static/media/butcherPig.d2056e61131c1ebcc1c6.jpeg",
+    "index.html": "/index.html",
+    "main.e9168539.css.map": "/static/css/main.e9168539.css.map",
+    "main.6928cf9d.js.map": "/static/js/main.6928cf9d.js.map",
+    "787.83af2e5e.chunk.js.map": "/static/js/787.83af2e5e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e9168539.css",
+    "static/js/main.6928cf9d.js"
+  ]
+}
