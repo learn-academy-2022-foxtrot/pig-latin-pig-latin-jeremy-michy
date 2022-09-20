@@ -1,0 +1,91 @@
+* {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+}
+body {
+  background-color: rgb(38, 69, 116);
+}
+
+/* ---HEADER--- */
+
+h1 {
+  font-size: 4rem;
+  color: #FFFFFF;
+  text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+  color: #FFFFFF;
+}
+h4 {
+  font-size: 2.5rem;
+  color: #FFFFFF;
+}
+
+.butcher-pig-image {
+  margin: 1rem;
+  width: 14rem;
+  border-radius: 7px;
+  box-shadow: 3px 3px 30px 3px rgb(13, 12, 13);
+}
+
+/* ---BODY--- */
+
+button {
+  border-radius: 0.9rem;
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.body-container {
+  padding-bottom: 3rem;
+}
+
+.page-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.input-section {
+  background-color: rgb(109, 108, 143);
+  box-shadow: 3px 3px 30px 3px rgb(13, 12, 13);
+  border-radius: .5rem;
+  color: #fff;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.user-input {
+  border-radius: .5rem;
+  font-size: 1rem;
+  height: 3rem;
+  width: 30rem;
+}
+
+/* ---FOOTER--- */
+
+footer {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 3rem;
+}
+
+.translatedText {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 4px 8px 8px rgb(13, 12, 13);
+}
+
+
+
+@media only screen and (max-width: 650px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .user-input {
+    font-size: 1rem;
+    height: 5rem;
+    padding: 1rem;
+    text-align: center;
+    width: 90%;
+  }
+}
