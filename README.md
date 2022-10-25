@@ -92,7 +92,23 @@ Oday ouyay eakspay igpay atinlay? If you are scratching your head at that statem
 ### 👩‍💻 Developer Stretch Challenges
 
 - As a developer, I have a well commented application.
-- As a developer, I have well written README file with instructions on how to access my repository.
+- As a developer, I have well written README file with instructions on how to 
+access my repository.
 - As a developer, my variables are all named semantically.
 - As a developer, I have refactored and efficient code.
 - As a developer, I have my application [deployed as a live website](https://render.com/docs/deploy-create-react-app).
+
+---
+# How to Access Repo
+## Select Code
+ <img src="./ss-step1.png">
+
+
+## Select HTTPS, then copy code
+ <img src="./ss-step2.png">
+
+ ## Git clone into your chosen directory with terminal
+ ```bash
+ git clone <repo-address>
+ ```
+<img src="./ss-step3.png">
